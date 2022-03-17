@@ -1,0 +1,2 @@
+# SmartRecruiters
+pod install
