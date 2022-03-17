@@ -9,4 +9,5 @@ import Foundation
 
 struct StringConstants {
     static let usersTitle = "Users"
+    static let emptyUserText = "Whoops... No data found"
 }

@@ -16,4 +16,6 @@ struct User: Codable {
         case name = "login"
         case url = "avatar_url"
     }
+    
+    static let testUser = User(name: "Paul", url: "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg")
 }

@@ -12,19 +12,29 @@ class UsersViewModel {
     var service: NetworkingService?
     private var arrayOfUsers = [User]()
     var onRefreshHandling : (() -> Void)?
-
+    var onErrorHandling : ((ErrorResult?) -> Void)?
+    
     init(_ service: NetworkingService = NetworkingApi.shared) {
         self.service = service
+        self.getUsers()
     }
     
     func getUsers() {
         guard let service = service else {
             return
         }
-        service.searchRepos(completion: { users in
+        service.searchUsers(completion: { result in
             DispatchQueue.main.async {
-                self.arrayOfUsers = users
-                self.onRefreshHandling?()
+                switch result {
+                case .success(let data):
+                    self.arrayOfUsers = data
+                    self.onRefreshHandling?()
+                    break
+                case .failure(let error):
+                    print(error)
+                    self.onErrorHandling?(ErrorResult.custom(string: error.localizedDescription))
+                    break
+                }
             }
         })
     }
